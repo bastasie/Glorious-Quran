@@ -40,15 +40,15 @@
                 { language: 'German', ratio: 271, color: '#ffc658' },
                 { language: 'Russian', ratio: 224, color: '#ff8042' },
                 { language: 'Mandarin', ratio: 194, color: '#a4de6c' },
-                { language: 'Japanese', ratio: 238, color: '#d0ed57' },
-                { language: 'Hebrew', ratio: 6.4, color: '#83a6ed' }
+                { language: 'Japanese', ratio: 238, color: '#d0ed57' }
+                
             ];
 
             const factorsData = [
-                { name: 'Root-Pattern', Arabic: 10, English: 1, French: 1, Russian: 1, Mandarin: 1, Hebrew: 9 },
-                { name: 'Inflection', Arabic: 10, English: 4, French: 5, Russian: 7, Mandarin: 2, Hebrew: 8 },
-                { name: 'Diacritics', Arabic: 10, English: 0, French: 1, Russian: 0, Mandarin: 0, Hebrew: 7 },
-                { name: 'Word Formation', Arabic: 10, English: 3, French: 3, Russian: 5, Mandarin: 4, Hebrew: 8 }
+                { name: 'Root-Pattern', Arabic: 10, English: 1, French: 1, Russian: 1, Mandarin: 1 },
+                { name: 'Inflection', Arabic: 10, English: 4, French: 5, Russian: 7, Mandarin: 2 },
+                { name: 'Diacritics', Arabic: 10, English: 0, French: 1, Russian: 0, Mandarin: 0 },
+                { name: 'Word Formation', Arabic: 10, English: 3, French: 3, Russian: 5, Mandarin: 4 }
             ];
 
             const examples = [
@@ -101,7 +101,7 @@
                 <div className="p-4">
                     <h2 className="text-xl font-bold mb-4">Factors Contributing to Arabic Compression</h2>
                     <div className="flex mb-4 flex-wrap">
-                        {['Arabic', 'English', 'French', 'Russian', 'Mandarin', 'Hebrew'].map(language => (
+                        {['Arabic', 'English', 'French', 'Russian', 'Mandarin'].map(language => (
                             <button
                                 key={language}
                                 className={`px-3 py-1 mr-2 mb-2 rounded ${selectedLanguage === language ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
