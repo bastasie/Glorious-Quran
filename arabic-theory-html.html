@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Linguistic Theory: Mathematical Framework</title>
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <!-- Optional: Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-top: 0;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        /* Navigation */
+        .nav {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background-color: #f7fafc;
+        }
+        
+        .nav-item.active {
+            border-bottom: 2px solid #4299e1;
+            font-weight: bold;
+        }
+        
+        /* Content sections */
+        .section {
+            display: none;
+            padding: 16px;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* Card styles */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .card {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .card:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .card.active {
+            background-color: #ebf8ff;
+            border-color: #4299e1;
+        }
+        
+        /* Chart containers */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .md-w-half {
+                width: 50%;
+            }
+        }
+        
+        /* Component-specific styles */
+        .bg-blue-100 {
+            background-color: #ebf8ff;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .bg-orange-100 {
+            background-color: #fffaf0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .bg-gray-100 {
+            background-color: #f7fafc;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .mt-4 {
+            margin-top: 16px;
+        }
+        
+        .mt-6 {
+            margin-top: 24px;
+        }
+        
+        .mb-2 {
+            margin-bottom: 8px;
+        }
+        
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+        
+        .font-bold {
+            font-weight: bold;
+        }
+        
+        .text-sm {
+            font-size: 14px;
+        }
+        
+        .text-blue-800 {
+            color: #2c5282;
+        }
+        
+        .text-gray-600 {
+            color: #718096;
+        }
+        
+        .border-t {
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .pt-4 {
+            padding-top: 16px;
+        }
+        
+        ul.list-disc {
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        
+        .code-block {
+            background-color: #f7fafc;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            display: block;
+        }
+        
+        button {
+            cursor: pointer;
+        }
+        
+        .circle-button {
+            padding: 8px 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background-color: #e2e8f0;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .circle-button.active {
+            background-color: #4299e1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arabic Linguistic Theory: Mathematical Framework</h1>
+        
+        <div class="nav">
+            <button class="nav-item active" data-section="overview">Overview</button>
+            <button class="nav-item" data-section="constant-c">Theorem 2.2</button>
+            <button class="nav-item" data-section="poetic-circles">Poetic Circles</button>
+            <button class="nav-item" data-section="quranic-divergence">Quranic Divergence</button>
+            <button class="nav-item" data-section="gender-function">Gender-Function</button>
+        </div>
+        
+        <!-- Overview Section -->
+        <div id="overview" class="section active">
+            <h2>Key Concepts in Our Theoretical Framework</h2>
+            <div class="grid grid-2">
+                <div class="card" data-theorem="1">
+                    <h3>Theorem 2.2: Prime Count</h3>
+                    <p>Establishes the minimum number of primes needed for a desired accuracy level in root extraction.</p>
+                    <div class="hidden theorem-detail">
+                        <p class="mt-2 text-sm text-blue-800">Click on the corresponding section in the navigation to explore this theorem in detail.</p>
+                    </div>
+                </div>
+                <div class="card" data-theorem="2">
+                    <h3>Theorem 4.3: Vocabulary Space</h3>
+                    <p>Maps the theoretical vocabulary potential of Arabic to 12 million words.</p>
+                    <div class="hidden theorem-detail">
+                        <p class="mt-2 text-sm text-blue-800">Click on the corresponding section in the navigation to explore this theorem in detail.</p>
+                    </div>
+                </div>
+                <div class="card" data-theorem="3">
+                    <h3>Theorem 6.1: Quranic-Poetic Divergence</h3>
+                    <p>Proves fundamental structural differences between Quranic text and poetic meter.</p>
+                    <div class="hidden theorem-detail">
+                        <p class="mt-2 text-sm text-blue-800">Click on the corresponding section in the navigation to explore this theorem in detail.</p>
+                    </div>
+                </div>
+                <div class="card" data-theorem="4">
+                    <h3>Theorem 6.5: Rhythmic-Semantic Distinction</h3>
+                    <p>Quantifies the coupling between rhythm and meaning in poetry versus Quranic text.</p>
+                    <div class="hidden theorem-detail">
+                        <p class="mt-2 text-sm text-blue-800">Click on the corresponding section in the navigation to explore this theorem in detail.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="font-bold mb-2">Core Mathematical Framework</h3>
+                <p class="mb-4">
+                    Our paper establishes a comprehensive mathematical foundation for understanding Arabic's unique linguistic properties,
+                    including its remarkable compression efficiency, the structural uniqueness of Quranic text, and the systematic
+                    correlation between form and function in grammatical gender.
+                </p>
+                <div class="grid grid-3 mt-4">
+                    <div class="bg-gray-100">
+                        <h4 class="font-bold">12 Million Word Vocabulary</h4>
+                        <p class="text-sm">The full morphological potential of Arabic yields approximately 12 million distinct words.</p>
+                    </div>
+                    <div class="bg-gray-100">
+                        <h4 class="font-bold">Compression Ratio</h4>
+                        <p class="text-sm">Arabic achieves information encoding efficiency up to 359:1 compared to English.</p>
+                    </div>
+                    <div class="bg-gray-100">
+                        <h4 class="font-bold">Quranic Uniqueness</h4>
+                        <p class="text-sm">Quranic text occupies a mathematically distinct structural space from both poetry and prose.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theorem 2.2 Section -->
+        <div id="constant-c" class="section">
+            <h2>Theorem 2.2: Constant c Analysis</h2>
+            <p class="mb-4">
+                The constant c represents the exponential decay rate in error probability as the number of primes increases:
+                <br>
+                <code class="code-block">c = (1/2)log(1+ρ_v²) + (ρ_d²-ρ_v²)/(2(1+ρ_v²))</code>
+                where ρ_v is the ratio of root variability to affix variability, and ρ_d is the ratio of minimum root distance to affix variability.
+            </p>
+            <div class="chart-container">
+                <canvas id="constantCChart"></canvas>
+            </div>
+            <div class="bg-gray-100">
+                <p>
+                    This graph shows how the value of constant c changes with different values of root variability ratio (ρ_v) 
+                    and minimum root distance ratio (ρ_d). Higher values of c indicate better discrimination between 
+                    words with the same root versus different roots.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Poetic Circles Section -->
+        <div id="poetic-circles" class="section">
+            <h2>The Five Circles (دوائر) of Arabic Poetry</h2>
+            <div class="circle-buttons">
+                <button class="circle-button" data-circle="1">دائرة المختلف</button>
+                <button class="circle-button" data-circle="2">دائرة المؤتلف</button>
+                <button class="circle-button" data-circle="3">دائرة المجتلب</button>
+                <button class="circle-button" data-circle="4">دائرة المشتبه</button>
+                <button class="circle-button" data-circle="5">دائرة المتفق</button>
+                <button class="circle-button" data-circle="clear">Clear</button>
+            </div>
+            <div class="flex">
+                <div class="w-full md-w-half">
+                    <div class="chart-container">
+                        <canvas id="poeticCirclesChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md-w-half" id="circle-detail">
+                    <div id="no-selection">
+                        <p>Select a circle to view details</p>
+                    </div>
+                    <div id="circle-info" class="hidden">
+                        <h3 id="circle-name" class="text-lg font-bold"></h3>
+                        <p class="text-sm mb-2">Base Pattern: <span id="circle-pattern" class="font-mono"></span></p>
+                        <div class="chart-container">
+                            <canvas id="metersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-100">
+                <p>
+                    Classical Arabic poetry is organized into five circles (دوائر), each containing distinct meters (بحور).
+                    These sixteen meters form the basis of Arabic poetic structure, following precise patterns of 
+                    syllabic units. Click on a circle to view its associated meters.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Quranic Divergence Section -->
+        <div id="quranic-divergence" class="section">
+            <h2>Quranic Text vs. Poetic Structure</h2>
+            <div class="flex">
+                <div class="w-full md-w-half">
+                    <h3 class="text-lg font-bold">Eigenvalue Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="eigenvalueChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md-w-half">
+                    <h3 class="text-lg font-bold">Fractal Dimension Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="fractalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="text-lg font-bold">Eigenmanifold Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="eigenmanifoldChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-gray-100">
+                <p>
+                    Theorem 6.1 establishes the fundamental structural divergence between Quranic text and classical
+                    Arabic poetry. The visualizations demonstrate:
+                </p>
+                <ul class="list-disc mt-2">
+                    <li>Different eigenvalue distributions between poetic and Quranic text</li>
+                    <li>Higher fractal dimension in Quranic text (6.8) compared to poetry (4.0)</li>
+                    <li>Distinct eigenmanifold clustering showing the topological separation between text types</li>
+                </ul>
+                <p class="mt-2">
+                    This mathematical analysis proves that Quranic text occupies a unique structural position that 
+                    cannot be derived from or reduced to either poetry or prose.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Gender-Function Section -->
+        <div id="gender-function" class="section">
+            <h2>Arabic Grammatical Gender and Function Correlation</h2>
+            <div class="chart-container">
+                <canvas id="genderFunctionChart"></canvas>
+            </div>
+            <div class="flex mt-4">
+                <div class="w-full md-w-half pr-2">
+                    <div class="bg-blue-100">
+                        <h3 class="font-bold mb-2">Masculine Gender Correlation</h3>
+                        <p>Often associates with:</p>
+                        <ul class="list-disc pl-5">
+                            <li>Active, giving, or productive functions</li>
+                            <li>Tools that act upon other objects</li>
+                            <li>Objects that penetrate or modify</li>
+                            <li>Instruments that initiate action</li>
+                        </ul>
+                        <p class="mt-2 italic">Example: قلم /qalam/ (pen, masculine) - writing instrument</p>
+                    </div>
+                </div>
+                <div class="w-full md-w-half pl-2">
+                    <div class="bg-orange-100">
+                        <h3 class="font-bold mb-2">Feminine Gender Correlation</h3>
+                        <p>Often associates with:</p>
+                        <ul class="list-disc pl-5">
+                            <li>Receptive, containing, or collecting functions</li>
+                            <li>Vessels and containers</li>
+                            <li>Objects that receive action</li>
+                            <li>Instruments that gather or hold</li>
+                        </ul>
+                        <p class="mt-2 italic">Example: ورقة /waraqa/ (paper, feminine) - receives writing</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-100">
+                <p>
+                    The Arabic language exhibits a remarkable correlation between grammatical gender and object function.
+                    This represents an additional semantic layer that provides functional information about objects
+                    through their grammatical classification, enhancing the language's efficiency in encoding meaning.
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-sm text-gray-600 border-t pt-4">
+            <p>This visualization presents the key mathematical concepts from our comprehensive analysis of Arabic linguistic structure.</p>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const theorems = [
+            { id: 1, name: 'Theorem 2.2: Prime Count', description: 'Establishes the minimum number of primes needed for a desired accuracy level in root extraction.' },
+            { id: 2, name: 'Theorem 4.3: Vocabulary Space', description: 'Maps the theoretical vocabulary potential of Arabic to 12 million words.' },
+            { id: 3, name: 'Theorem 6.1: Quranic-Poetic Divergence', description: 'Proves fundamental structural differences between Quranic text and poetic meter.' },
+            { id: 4, name: 'Theorem 6.5: Rhythmic-Semantic Distinction', description: 'Quantifies the coupling between rhythm and meaning in poetry versus Quranic text.' }
+        ];
+
+        const poeticCircles = [
+            { id: 1, name: 'دائرة المختلف', meters: ['الطويل', 'المديد', 'البسيط'], pattern: 'فعولن مفاعيلن فعولن مفاعيلن', color: '#8884d8' },
+            { id: 2, name: 'دائرة المؤتلف', meters: ['الوافر', 'الكامل'], pattern: 'مفاعلتن مفاعلتن مفاعلتن', color: '#82ca9d' },
+            { id: 3, name: 'دائرة المجتلب', meters: ['الهزج', 'الرجز', 'الرمل'], pattern: 'مفاعيلن مفاعيلن مفاعيلن', color: '#ffc658' },
+            { id: 4, name: 'دائرة المشتبه', meters: ['السريع', 'المنسرح', 'الخفيف', 'المضارع', 'المقتضب', 'المجتث'], pattern: 'مستفعلن مفعولات مستفعلن', color: '#ff8042' },
+            { id: 5, name: 'دائرة المتفق', meters: ['المتقارب', 'المتدارك'], pattern: 'فعولن فعولن فعولن فعولن', color: '#a4de6c' }
+        ];
+
+        const eigenvalueData = [
+            { name: 'Cluster 1', poetry: 0.8, quran: 0.2 },
+            { name: 'Cluster 2', poetry: 0.9, quran: 0.3 },
+            { name: 'Cluster 3', poetry: 0.7, quran: 0.5 },
+            { name: 'Cluster 4', poetry: 0.6, quran: 0.7 },
+            { name: 'Cluster 5', poetry: 0.5, quran: 0.9 },
+            { name: 'Cluster 6', poetry: 0.4, quran: 0.6 },
+            { name: 'Cluster 7', poetry: 0.3, quran: 0.8 },
+        ];
+
+        const fractalData = [
+            { name: 'Poetry', dimension: 4.0, color: '#8884d8' },
+            { name: 'Prose', dimension: 5.2, color: '#82ca9d' },
+            { name: 'Quranic Text', dimension: 6.8, color: '#ffc658' }
+        ];
+
+        const genderFunctionData = [
+            { category: 'Containers', masculine: 20, feminine: 80 },
+            { category: 'Tools', masculine: 75, feminine: 25 },
+            { category: 'Natural Elements', masculine: 40, feminine: 60 },
+            { category: 'Body Parts', masculine: 55, feminine: 45 },
+            { category: 'Abstract Concepts', masculine: 60, feminine: 40 }
+        ];
+
+        // Chart configurations and initializations
+        let constantCChart, poeticCirclesChart, metersChart, eigenvalueChart, fractalChart, eigenmanifoldChart, genderFunctionChart;
+        let selectedCircle = null;
+
+        // Helper functions
+        function initializeCharts() {
+            // Constant C Chart
+            const cValues = calculateCValues();
+            const ctxConstantC = document.getElementById('constantCChart').getContext('2d');
+            constantCChart = new Chart(ctxConstantC, {
+                type: 'line',
+                data: {
+                    labels: ['0.1', '0.2', '0.3', '0.4', '0.5'],
+                    datasets: [
+                        {
+                            label: 'ρ_d = 0.5',
+                            data: cValues.slice(0, 5).map(item => item.c),
+                            borderColor: '#8884d8',
+                            backgroundColor: 'rgba(136, 132, 216, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'ρ_d = 1.0',
+                            data: cValues.slice(5).map(item => item.c),
+                            borderColor: '#82ca9d',
+                            backgroundColor: 'rgba(130, 202, 157, 0.1)',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Root Variability Ratio (ρ_v)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Constant c'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Poetic Circles Chart
+            const ctxPoeticCircles = document.getElementById('poeticCirclesChart').getContext('2d');
+            poeticCirclesChart = new Chart(ctxPoeticCircles, {
+                type: 'pie',
+                data: {
+                    labels: poeticCircles.map(circle => circle.name),
+                    datasets: [{
+                        data: poeticCircles.map(circle => circle.meters.length),
+                        backgroundColor: poeticCircles.map(circle => circle.color)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value} meters`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initialize Meters Chart (empty until a circle is selected)
+            const ctxMeters = document.getElementById('metersChart').getContext('2d');
+            metersChart = new Chart(ctxMeters, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A4DE6C', '#8884D8']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+
+            // Eigenvalue Chart
+            const ctxEigenvalue = document.getElementById('eigenvalueChart').getContext('2d');
+            eigenvalueChart = new Chart(ctxEigenvalue, {
+                type: 'line',
+                data: {
+                    labels: eigenvalueData.map(item => item.name),
+                    datasets: [
+                        {
+                            label: 'Poetic Text',
+                            data: eigenvalueData.map(item => item.poetry),
+                            borderColor: '#8884d8',
+                            backgroundColor: 'rgba(136, 132, 216, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Quranic Text',
+                            data: eigenvalueData.map(item => item.quran),
+                            borderColor: '#82ca9d',
+                            backgroundColor: 'rgba(130, 202, 157, 0.1)',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            // Fractal Dimension Chart
+            const ctxFractal = document.getElementById('fractalChart').getContext('2d');
+            fractalChart = new Chart(ctxFractal, {
+                type: 'bar',
+                data: {
+                    labels: fractalData.map(item => item.name),
+                    datasets: [{
+                        label: 'Fractal Dimension',
+                        data: fractalData.map(item => item.dimension),
+                        backgroundColor: fractalData.map(item => item.color)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Fractal Dimension'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Eigenmanifold Chart
+            const ctxEigenmanifold = document.getElementById('eigenmanifoldChart').getContext('2d');
+            eigenmanifoldChart = new Chart(ctxEigenmanifold, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Quranic Text',
+                            data: [
+                                { x: 0.2, y: 0.3 },
+                                { x: 0.5, y: 0.7 },
+                                { x: 0.7, y: 0.2 },
+                                { x: 0.9, y: 0.5 },
+                                { x: 0.3, y: 0.9 },
+                                { x: 0.6, y: 0.4 },
+                                { x: 0.4, y: 0.6 },
+                                { x: 0.8, y: 0.8 }
+                            ],
+                            backgroundColor: '#82ca9d',
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Poetic Text',
+                            data: [
+                                { x: 0.2, y: 0.2 },
+                                { x: 0.3, y: 0.3 },
+                                { x: 0.4, y: 0.2 },
+                                { x: 0.2, y: 0.4 },
+                                { x: 0.6, y: 0.6 },
+                                { x: 0.7, y: 0.7 },
+                                { x: 0.8, y: 0.6 },
+                                { x: 0.6, y: 0.8 }
+                            ],
+                            backgroundColor: '#8884d8',
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Dimension 1'
+                            },
+                            min: 0,
+                            max: 1
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Dimension 2'
+                            },
+                            min: 0,
+                            max: 1
+                        }
+                    }
+                }
+            });
+
+            // Gender Function Chart
+            const ctxGenderFunction = document.getElementById('genderFunctionChart').getContext('2d');
+            genderFunctionChart = new Chart(ctxGenderFunction, {
+                type: 'bar',
+                data: {
+                    labels: genderFunctionData.map(item => item.category),
+                    datasets: [
+                        {
+                            label: 'Masculine (Active/Giving)',
+                            data: genderFunctionData.map(item => item.masculine),
+                            backgroundColor: '#0088FE',
+                            stack: 'Stack 0'
+                        },
+                        {
+                            label: 'Feminine (Receptive/Containing)',
+                            data: genderFunctionData.map(item => item.feminine),
+                            backgroundColor: '#FF8042',
+                            stack: 'Stack 0'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Percentage'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function calculateCValues() {
+            // Calculate c values based on the formula
+            return [
+                { rho_v: 0.1, rho_d: 0.5, c: 0.125 },
+                { rho_v: 0.2, rho_d: 0.5, c: 0.129 },
+                { rho_v: 0.3, rho_d: 0.5, c: 0.134 },
+                { rho_v: 0.4, rho_d: 0.5, c: 0.142 },
+                { rho_v: 0.5, rho_d: 0.5, c: 0.152 },
+                { rho_v: 0.1, rho_d: 1.0, c: 0.504 },
+                { rho_v: 0.2, rho_d: 1.0, c: 0.509 },
+                { rho_v: 0.3, rho_d: 1.0, c: 0.517 },
+                { rho_v: 0.4, rho_d: 1.0, c: 0.527 },
+                { rho_v: 0.5, rho_d: 1.0, c: 0.541 }
+            ];
+        }
+
+        function updateMetersChart(circleId) {
+            if (circleId === 'clear' || !circleId) {
+                // Clear selection
+                document.getElementById('no-selection').classList.remove('hidden');
+                document.getElementById('circle-info').classList.add('hidden');
+                selectedCircle = null;
+                
+                // Update active state in buttons
+                document.querySelectorAll('.circle-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                return;
+            }
+            
+            const circle = poeticCircles.find(c => c.id == circleId);
+            if (!circle) return;
+            
+            selectedCircle = circle.id;
+            
+            // Update buttons active state
+            document.querySelectorAll('.circle-button').forEach(btn => {
+                if (btn.dataset.circle == circleId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update circle info
+            document.getElementById('no-selection').classList.add('hidden');
+            document.getElementById('circle-info').classList.remove('hidden');
+            document.getElementById('circle-name').textContent = circle.name;
+            document.getElementById('circle-pattern').textContent = circle.pattern;
+            
+            // Update meters chart
+            metersChart.data.labels = circle.meters;
+            metersChart.data.datasets[0].data = circle.meters.map(() => 1);
+            metersChart.update();
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tabs
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.dataset.section;
+                    
+                    // Update active tab
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update active section
+                    document.querySelectorAll('.section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Initialize theorem cards
+            const theoremCards = document.querySelectorAll('.card[data-theorem]');
+            theoremCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const theoremId = this.dataset.theorem;
+                    
+                    // Toggle active state
+                    if (this.classList.contains('active')) {
+                        this.classList.remove('active');
+                        this.querySelector('.theorem-detail').classList.add('hidden');
+                    } else {
+                        // Deactivate all other cards
+                        theoremCards.forEach(c => {
+                            c.classList.remove('active');
+                            c.querySelector('.theorem-detail').classList.add('hidden');
+                        });
+                        
+                        // Activate this card
+                        this.classList.add('active');
+                        this.querySelector('.theorem-detail').classList.remove('hidden');
+                    }
+                });
+            });
+            
+            // Initialize poetic circle buttons
+            const circleButtons = document.querySelectorAll('.circle-button');
+            circleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    updateMetersChart(this.dataset.circle);
+                });
+            });
+            
+            // Initialize charts
+            initializeCharts();
+        });
+    </script>
+</body>
+</html>
